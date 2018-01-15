@@ -27,6 +27,7 @@ public class Texture {
 		}else {
 			try {
 				manager = new TextureManager(ImageIO.read(new File("./resources/textures/" + fileName + ".png")));
+				texMap.put(fileName, manager);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -43,6 +44,10 @@ public class Texture {
 	
 	public void render(Graphics g, double x, double y) {
 		g.drawImage(manager.getImage(), (int) x, (int) y, null);
+	}
+
+	public BufferedImage getImage() {
+		return manager.getImage();
 	}
 	
 }

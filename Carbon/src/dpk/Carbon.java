@@ -7,6 +7,8 @@ import java.awt.image.BufferStrategy;
 
 import javax.swing.JFrame;
 
+import render.Texture;
+
 public class Carbon extends Canvas implements Runnable {
 	
 	/**
@@ -18,6 +20,11 @@ public class Carbon extends Canvas implements Runnable {
 	public static final int HEIGHT = WIDTH / 16 * 9;
 	
 	private boolean running;
+	private Texture texture;
+	
+	public Carbon() {
+		texture = new Texture("badcircle");
+	}
 	
 	private void start() {
 		if(running) return;
@@ -100,9 +107,16 @@ public class Carbon extends Canvas implements Runnable {
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		
+		///////////////////////////////////
+		
 		// Draw dummy frame
 		g.setColor(Color.GREEN);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		texture.render(g, 100, 100);
+		
+		///////////////////////////////////
 		
 		g.dispose();
 		bs.show();
