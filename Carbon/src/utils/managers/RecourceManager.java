@@ -1,4 +1,4 @@
-package util.manager;
+package utils.managers;
 
 public abstract class RecourceManager {
 	

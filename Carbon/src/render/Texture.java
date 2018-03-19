@@ -10,7 +10,7 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import util.manager.TextureManager;
+import utils.managers.TextureManager;
 
 public class Texture {
 	
@@ -29,7 +29,6 @@ public class Texture {
 				manager = new TextureManager(ImageIO.read(new File("./resources/textures/" + fileName + ".png")));
 				texMap.put(fileName, manager);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
