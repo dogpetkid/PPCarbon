@@ -9,6 +9,7 @@ public interface State {
 	public void tick(StateManager stateManager);
 	public void render(Graphics2D g);
 	public void exit();
+	public void reset();
 	public String getName();
 	
 }

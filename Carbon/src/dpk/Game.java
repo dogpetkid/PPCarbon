@@ -13,6 +13,7 @@ import render.Texture;
 import render.sprites.SpriteSheet;
 import states.StateManager;
 import states.rooms.room1;
+import states.rooms.room2;
 
 /**
  * Main game.
@@ -51,6 +52,7 @@ public class Game extends Canvas implements Runnable {
 		
 		sm.addState(new MenuState());
 		sm.addState(new room1());
+		sm.addState(new room2());
 	}
 	
 	protected void start() {
@@ -110,7 +112,6 @@ public class Game extends Canvas implements Runnable {
 				if(debug) {
 					System.out.printf("fps: %d ~ tps %d\n", fps, tps);
 					System.out.printf("X: %d ~ Y %d\n", MouseInput.getX(), MouseInput.getY());
-					// TODO: fix the debugPrint: it only triggers once and then stops working
 					debugPrint = true;
 				}
 				fps = 0;
@@ -122,12 +123,19 @@ public class Game extends Canvas implements Runnable {
 	}
 	
 	private void tick() {
+		//Debug toggle: F11
 		if(KeyInput.wasPressed(KeyEvent.VK_F11)) {
 			debug = !debug;
 			System.out.println("Debug toggled: "+debug);
 		}
 		
+		//Stop: END
 		if(KeyInput.wasPressed(KeyEvent.VK_END)) this.stop();
+		//Reset state: \
+		if(KeyInput.wasPressed(KeyEvent.VK_BACK_SLASH)) {
+			sm.resetCurrentState();
+			if(debug) {System.out.println(sm.getCurrentStateName()+": State was reset.");}
+		}
 		
 		sm.tick();
 	}

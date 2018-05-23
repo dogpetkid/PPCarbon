@@ -33,6 +33,23 @@ public class StateManager {
 		currentState = state;
 	}
 	
+	public String getCurrentStateName() {
+		return currentState.getName();
+	}
+	
+	/** Resets and initiates the room.
+	 * (Same as 're-entering' the room in Game Maker.)
+	 */
+	public void resetCurrentState() {
+		//map.remove(currentState.getName().toUpperCase());
+		/*
+		map.remove(currentState.getName());
+		addState(currentState);
+		setState(currentState.getName());
+		*/
+		currentState.reset();
+	}
+	
 	public void tick() {
 		currentState.tick(this);
 	}

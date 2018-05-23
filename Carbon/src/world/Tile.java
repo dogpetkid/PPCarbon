@@ -32,7 +32,7 @@ public class Tile {
 		}
 	}
 	
-	public Rectangle getbounds() {
+	public Rectangle getBounds() {
 		return new Rectangle((int) x, (int) y, sprite.getWidth(), sprite.getHeight());
 	}
 	

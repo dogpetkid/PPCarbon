@@ -62,7 +62,20 @@ public abstract class LevelState implements State{
 	@Override
 	public void exit() {
 		entities.clear();
+		player=null;
 	}
+	
+	@Override
+	public void reset() {
+		exit();
+		init();
+	}
+	
+	/**
+	 * Used to check whether the room's objective is completed.
+	 * @return Returns true when objective is complete.
+	 */
+	public boolean checkCompletion() {return false;}
 
 	public void addEntity(Entity entity) {
 		entities.add(entity);

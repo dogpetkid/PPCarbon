@@ -7,13 +7,16 @@ import render.sprites.Sprite;
 import states.LevelState;
 
 /**
- * Non-player atoms.
+ * All mobs that are non-player 'atoms'.
  */
 public class AnyAtom extends Mob{
 
 	protected boolean bonded = false;
-	protected int bondDirection = 0; // (RELATIVE TO PLAYER) 0 none, 1 left, 2 up, 3 down, 4 right
-	// i.e. if bondDirection was 1, the bonded atom would be left of the player
+	/**
+	 *  (RELATIVE TO PLAYER) 0 none, 1 left, 2 up, 3 down, 4 right
+	 *  i.e. if bondDirection was 1, the bonded atom would be left of the player
+	 */
+	protected int bondDirection = 0; 
 
 	public AnyAtom(Sprite sprite, double x, double y, LevelState state) {
 		super(sprite, x, y, state);
@@ -25,26 +28,25 @@ public class AnyAtom extends Mob{
 	
 	@Override
 	public void tick() {
+		super.tick();
 		if(bonded) mimic();
 		else bonded = checkBonded();
-		super.tick();
 	}
 	
 	protected boolean checkBonded() {
 		boolean willBond = false;
-		for(int i=0; i < state.getEntitites().size(); i++) {
-			Entity e = state.getEntitites().get(i);
-			if(e.getClass()!=Player.class) continue;
-			// traveling right
-			if(getBounds().intersects(e.getLeft())) {bondDirection = 1; willBond=true;}
-			// traveling left
-			if(getBounds().intersects(e.getRight())) {bondDirection = 4; willBond=true;}
-			// landed
-			if(getBounds().intersects(e.getTop())) {bondDirection = 2; willBond=true;}
-			// risen
-			if(getBounds().intersects(e.getBottom())) {bondDirection = 3; willBond=true;}
-		}
-		if(willBond) state.getPlayer().bond(this, bondDirection);
+		Player e = state.getPlayer();
+		
+		// traveling right
+		if(getBounds().intersects(e.getLeft())) {bondDirection = 1; willBond=true;}
+		// traveling left
+		if(getBounds().intersects(e.getRight())) {bondDirection = 4; willBond=true;}
+		// landed
+		if(getBounds().intersects(e.getTop())) {bondDirection = 2; willBond=true;}
+		// risen
+		if(getBounds().intersects(e.getBottom())) {bondDirection = 3; willBond=true;}
+		
+		if(willBond) e.bond(this, bondDirection);
 		return willBond;
 	}
 	
@@ -66,9 +68,9 @@ public class AnyAtom extends Mob{
 	 * Mimics the players movements after bonded.
 	 */
 	public void mimic() {
-		dx=0;
-		dy=0;
 		Player player = state.getPlayer();
+		dx=player.getDx();
+		dy=player.getDy();
 		switch(bondDirection) {
 		case 0:
 			break;
@@ -103,11 +105,19 @@ public class AnyAtom extends Mob{
 		this.canRise = canRise;
 	}
 	
-	public boolean landing() {
+	public boolean getLanding() {
 		return landing;
 	}
 	
 	public boolean canRise() {
 		return canRise;
+	}
+	
+	public double getX() {
+		return x;
+	}
+	
+	public double getY() {
+		return y;
 	}
 }

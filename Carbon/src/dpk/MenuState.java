@@ -106,6 +106,9 @@ public class MenuState implements State{
 
 	@Override
 	public void exit() {}
+	
+	@Override
+	public void reset() {exit(); init();}
 
 	@Override
 	public String getName() {

@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 
 import dpk.Game;
-import entities.AnyAtom;
 import entities.Oatom;
 import entities.Player;
 import render.sprites.Sprite;
@@ -14,7 +13,7 @@ import states.State;
 import states.StateManager;
 import utils.Fonts;
 
-public class room1 extends LevelState implements State{
+public class room2 extends LevelState implements State{
 	
 	@Override
 	public void init() {
@@ -29,32 +28,19 @@ public class room1 extends LevelState implements State{
 	@Override
 	public void tick(StateManager stateManager) {
 		super.tick(stateManager);
-		
-		if(checkCompletion()) stateManager.setState("room2");
-	}
-	
-	/**
-	 * Check if player has bonded to the oxygen.
-	 */
-	@Override
-	public boolean checkCompletion() {
-		//TODO: fix check
-		AnyAtom[] bonds = getPlayer().getBonds();
-		for(int i=0;i<bonds.length;i++) {
-			if(bonds[i]!=null) return true;
-		}
-		return false;
 	}
 	
 	@Override
 	public void render(Graphics2D g) {
 		super.render(g);
-		Fonts.drawString(g, new Font("Optima",Font.PLAIN, 32), Color.RED, "Carbon bonds with oxygens (red)");
+		Fonts.drawString(g, new Font("Optima",Font.PLAIN, 32), Color.RED, "Copy of room1");
+		Fonts.drawString(g, new Font("Optima",Font.PLAIN, 12), Color.RED, "For state change demonstration purposes", Game.HEIGHT/2+48);
 	}
 	
 	@Override
 	public String getName() {
-		return "room1";
+		return "room2";
 	}
 
 }
+
